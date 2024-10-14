@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="\css\summary.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="">
+            <div class="logo"><img src="/images/org-logo-2.png" alt="" srcset=""></div>
+            <div class="header">
+                <!-- <h1 class="summary-header">My Desktop</h1> -->
+            </div>
+            <select class="theme-selector">
+                <option value="theme-dark">dark</option>
+                <option value="theme-light">light</option>
+            </select>
+        </nav>
+        <main>
+            <div class="level-one-info">
+                <div class="l1-info-card">
+                    <div class="icon"><i class="fa-solid fa-suitcase"></i></div>
+                    <div class="text">
+                        <div class="header">build status</div>
+                        <div class="content">
+                            PASS
+                        </div>
+                    </div>
+                </div>
+                <div class="l1-info-card">
+                    <div class="icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    <div class="text">
+                        <div class="header">machine</div>
+                        <div class="content">
+                            Local
+                        </div>
+                    </div>
+                </div>
+                <div class="l1-info-card">
+                    <div class="icon"><i class="fa-solid fa-earth-americas"></i></div>
+                    <div class="text">
+                        <div class="header">region</div>
+                        <div class="content">
+                            Test 4
+                        </div>
+                    </div>
+                </div>
+                <div class="l1-info-card">
+                    <div class="icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                    <div class="text">
+                        <div class="header">duration</div>
+                        <div class="content">
+                            1m 4s
+                        </div>
+                    </div>
+                </div>
+                <div class="l1-info-card">
+                    <div class="icon"><i class="fa-brands fa-creative-commons-by"></i></div>
+                    <div class="text">
+                        <div class="header">executed by</div>
+                        <div class="content">
+                            gcharles
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="level-two">
+                <div class="l2-background-image-wrapper">
+                    <div class="summary-bg-img" alt="" srcset=""></div>
+                </div>
+                <div class="l2-content-wrapper">
+                    <div class="graph-wrapper">
+                        <div class="icon"><i class="fa-solid fa-chart-area"></i></div>
+                        <h3 class="header">Test run summary</h3>
+                        <div class="body">
+                            <div class="graph-card">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            <div class="legend-card">
+                                <div class="legend-wrapper">
+                                    <div class="number bg-green">2</div>
+                                    <div class="text">Passed</div>
+                                </div>
+                                <div class="legend-wrapper">
+                                    <div class="number bg-green">1</div>
+                                    <div class="text">Failed</div>
+                                </div>
+                                <div class="legend-wrapper">
+                                    <div class="number bg-green">0</div>
+                                    <div class="text">Skipped</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+        const data = {
+            labels: [
+                'Red',
+                'Blue',
+                'Yellow'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [300, 50, 10],
+                backgroundColor: [
+                    '#77b900',
+                    '#d10c16',
+                    '#403f41'
+                ],
+                hoverOffset: 4,
+                borderColor: 'transparent'
+            }]
+        };
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                cutout: '95%',
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        display: false
+                    },
+                    title: {
+                        display: false,
+                        text: 'Chart.js Doughnut Chart'
+                    }
+                }
+            },
+        };
+
+        new Chart(ctx, config);
+    </script>
+</body>
+
+</html>
