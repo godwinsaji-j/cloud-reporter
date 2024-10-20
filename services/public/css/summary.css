@@ -9,8 +9,11 @@
     --color-danger: #b9000f;
     --color-muted: #837a7b;
     --color-secondary: white;
+    --highlight-border: #1f263b;
+    --color-tertiary: #080e20;
 }
-body:has(option[value='theme-light']:checked) {
+body:has(option[value='theme-light']:checked),
+body:has(input[value='theme-light']:checked) {
     --background-color: #e5e2e7;
     --background-gradient: radial-gradient(#f2f1f3, #e0dee0, #c4c2c4);
     --color-primary: #77b900;
@@ -55,7 +58,7 @@ nav img {
     height: 2rem;
 }
 main {
-    display: relative;
+    position: relative;
 }
 /* Summary Neon Background control*/
 .summary-bg-img {
@@ -69,16 +72,24 @@ main {
     position: relative;
     border-radius: 1rem;
 }
-@property --angle{
-    syntax: "<angle>";
+@property --angle {
+    syntax: '<angle>';
     initial-value: 0deg;
     inherits: false;
 }
-.summary-bg-img::after, .summary-bg-img::before{
-    content: "";
+.summary-bg-img::after,
+.summary-bg-img::before {
+    content: '';
     height: 100%;
     width: 100%;
-    background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff,#ff0095,#ff4545);
+    background-image: conic-gradient(
+        from var(--angle),
+        #ff4545,
+        #00ff99,
+        #006aff,
+        #ff0095,
+        #ff4545
+    );
     position: absolute;
     top: 50%;
     left: 50%;
@@ -88,17 +99,17 @@ main {
     padding: 0.2rem;
     animation: 3s spin linear infinite;
 }
-.summary-bg-img::before{
+.summary-bg-img::before {
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 @keyframes spin {
- from{
-    --angle: 0deg;
- }  
-to{
-    --angle: 360deg;
-}
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
 }
 .container {
     width: 100vw;
@@ -142,7 +153,7 @@ to{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 .l2-background-image-wrapper {
     position: absolute;
@@ -153,26 +164,94 @@ to{
 .l2-content-wrapper {
     position: absolute;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
     z-index: 1000;
     top: 0;
+    gap: 2rem;
+    margin-top: 1rem;
 }
 .graph-wrapper {
     background: #0f1a38d1;
-    width: 40rem;
+    width: 45%;
     border-radius: 0.5rem;
-    border: 0.2 rem solid #101c48;
+    border: 0.2rem solid #101c48;
     backdrop-filter: blur(1px);
-    top: 0;
-    z-index: 1;
     padding: 1rem;
 }
-.graph-wrapper .icon {
+.graph-wrapper .body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.graph-wrapper .graph-card {
+    position: relative;
+    width: 20rem;
+}
+.graph-wrapper .graph-card .summary-percentage {
     position: absolute;
-    top: 0;
-    left: 0;
+    font-size: 4rem;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    color: var(--color-secondary);
+}
+.graph-wrapper .legend-card {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.graph-wrapper .legend-card .legend-wrapper {
+    background-color: var(--background-color);
+    padding: 0.8rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    border: 0.15rem solid;
+}
+.legend-wrapper:nth-child(1) {
+    color: var(--color-success);
+}
+.legend-wrapper:nth-child(2) {
+    color: var(--color-danger);
+}
+.legend-wrapper:nth-child(3) {
+    color: var(--color-muted);
+}
+.info-wrapper {
+    background: #0f1a38d1;
+    width: 55%;
+    border-radius: 0.5rem;
+    border: 0.2rem solid #101c48;
+    backdrop-filter: blur(1px);
+    padding: 1rem;
+}
+
+.graph-wrapper .header,
+.info-wrapper .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+}
+
+.graph-wrapper .header .icon,
+.info-wrapper .header .icon {
+    position: absolute;
+    top: -1.5rem;
+    left: -1.5rem;
     background: var(--color-primary);
     color: var(--color-secondary);
     padding: 1rem;
@@ -181,46 +260,46 @@ to{
     z-index: 1000;
     font-size: 2rem;
 }
-.graph-wrapper .header {
-    text-align: center;
+.table {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius: 1rem;
+    /* border: 0.15rem solid var(--color-secondary); */
+    font-size: 1.2rem;
     color: var(--color-secondary);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    backdrop-filter: blur(-10px);
+    gap: 0.2rem;
 }
-.graph-wrapper .body{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+.table .row {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr 0.5fr;
+    padding: 0.5rem;
+    /* border-bottom: 0.07rem solid var(--color-secondary); */
+    background: var(--background-color);
 }
-.graph-wrapper .graph-card {
-    width: 20rem;
+.table .row:nth-child(1) {
+    background: transparent;
+    border-bottom: 0.1rem solid var(--color-secondary);
+    margin-bottom: 0.2rem;
 }
-.graph-wrapper .legend-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 1.5rem;
+.table .row .col {
+    text-align: center;
 }
 
-.graph-wrapper .legend-card .legend-wrapper{
-    background-color: var(--background-color);
-    padding: 1rem;
-    border-radius: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    min-width: 10rem;
+.table .row .col:nth-child(1) {
+    position: relative;
 }
-.legend-wrapper:nth-child(1){
-    color: var(--color-success);
+
+.table .row .col:nth-child(1) .icon {
+    color: var(--color-secondary);
+    padding: 0.1rem;
+    z-index: 1000;
+    font-size: 1.2rem;
+    border-radius: 0.2rem;
 }
-.legend-wrapper:nth-child(2){
-    color: var(--color-danger);
+.table .icon.success {
+    background: var(--color-success);
 }
-.legend-wrapper:nth-child(3){
-    color: var(--color-muted);
+.table .icon.danger {
+    background: var(--color-danger);
 }
